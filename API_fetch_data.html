@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML FETCH API</title>
+    <style>
+        #box {
+            padding: 10px;
+        }
+
+        #box table {
+            border: 2px solid black;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #box th, #box td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Fetched Data</h1>
+    <div id="box"></div>
+
+
+    <script>
+        const Url = "https://dummyjson.com/products";
+        async function getapi(Url) {
+            const response = await fetch(Url);
+            var data = await response.json();
+            console.log(data);
+            show(data.products);
+        }
+
+        function show(data) {
+            let tab = `<table>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                </tr>`;
+
+            for (let r of data) {
+                tab += `<tr>
+                    <td>${r.id}</td>
+                    <td>${r.title}</td>
+                    <td>${r.price}</td>
+                </tr>`;
+            }
+
+            tab += `</table>`;
+
+            document.getElementById("box").innerHTML = tab;
+        }
+
+        getapi(Url);
+    </script>
+</body>
+</html>
